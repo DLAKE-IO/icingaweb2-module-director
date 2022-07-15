@@ -250,8 +250,7 @@ class ServiceController extends ObjectController
         }
 
         $key = $this->getLegacyKey();
-        // Hint: not passing 'object' as type, we still have name-based links in previews and similar
-        $uuid = UuidLookup::findServiceUuid($this->db(), $this->getBranch(), null, $key, $this->host, $this->set);
+        $uuid = UuidLookup::findServiceUuid($this->db(), $this->getBranch(), 'object', $key, $this->host, $this->set);
         $this->params->set('uuid', $uuid->toString());
         parent::loadObject();
     }

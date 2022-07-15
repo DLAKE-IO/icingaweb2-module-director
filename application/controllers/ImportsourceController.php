@@ -4,7 +4,6 @@ namespace Icinga\Module\Director\Controllers;
 
 use Exception;
 use gipfl\Web\Widget\Hint;
-use Icinga\Module\Director\Data\Exporter;
 use Icinga\Module\Director\Db\Branch\Branch;
 use Icinga\Module\Director\Forms\ImportRowModifierForm;
 use Icinga\Module\Director\Forms\ImportSourceForm;
@@ -85,7 +84,7 @@ class ImportsourceController extends ActionController
         $this->addMainActions();
         $source = $this->getImportSource();
         if ($this->params->get('format') === 'json') {
-            $this->sendJson($this->getResponse(), (new Exporter($this->db()))->export($source));
+            $this->sendJson($this->getResponse(), $source->export());
             return;
         }
         $this->addTitle(

@@ -193,8 +193,8 @@ class DataController extends ActionController
             'object_name' => $field->getSetting('template_name')
         ], $connection);
 
-        $form = new IcingaDictionaryMemberForm();
-        $form->setType(get_class($object));
+	$form = new IcingaDictionaryMemberForm();
+	$form->setType(get_class($object));
         $form->setDb($connection);
         if ($instance) {
             $instanceObject = $object::create([

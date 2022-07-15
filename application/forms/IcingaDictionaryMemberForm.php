@@ -6,7 +6,7 @@ use Icinga\Module\Director\Web\Form\DirectorObjectForm;
 use Icinga\Module\Director\Objects\IcingaService;
 use Icinga\Module\Director\Objects\IcingaHost;
 
-class IcingaServiceDictionaryMemberForm extends DirectorObjectForm
+class IcingaDictionaryMemberForm extends DirectorObjectForm
 {
     /** @var IcingaObject */
     protected $object;
@@ -46,7 +46,7 @@ class IcingaServiceDictionaryMemberForm extends DirectorObjectForm
 
     protected function getObjectClassname()
     {
-        return $this->object_class;
+	return $this->object_class;
     }
 
     public function succeeded()

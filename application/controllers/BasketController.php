@@ -10,7 +10,6 @@ use gipfl\Web\Table\NameValueTable;
 use gipfl\Web\Widget\Hint;
 use Icinga\Date\DateFormatter;
 use Icinga\Module\Director\Core\Json;
-use Icinga\Module\Director\Data\Exporter;
 use Icinga\Module\Director\Db;
 use Icinga\Module\Director\DirectorObject\Automation\Basket;
 use Icinga\Module\Director\DirectorObject\Automation\BasketSnapshot;
@@ -248,7 +247,6 @@ class BasketController extends ActionController
         $json = $snapshot->getJsonDump();
         $this->addSingleTab($this->translate('Snapshot'));
         $all = Json::decode($json);
-        $exporter = new Exporter($this->db());
         $fieldResolver = new BasketSnapshotFieldResolver($all, $connection);
         foreach ($all as $type => $objects) {
             if ($type === 'Datafield') {
@@ -286,7 +284,7 @@ class BasketController extends ActionController
                         );
                         continue;
                     }
-                    $currentExport = $exporter->export($current);
+                    $currentExport = $current->export();
                     $fieldResolver->tweakTargetIds($currentExport);
 
                     // Ignore originalId
@@ -368,7 +366,7 @@ class BasketController extends ActionController
             )
             */
         ]);
-        $exporter = new Exporter($this->db());
+
         $json = $snapshot->getJsonDump();
         $this->addSingleTab($this->translate('Snapshot'));
         $objects = Json::decode($json);
@@ -387,7 +385,7 @@ class BasketController extends ActionController
         if ($current === null) {
             $current = '';
         } else {
-            $exported = $exporter->export($current);
+            $exported = $current->export();
             $fieldResolver->tweakTargetIds($exported);
             unset($exported->originalId);
             CompareBasketObject::normalize($exported);
