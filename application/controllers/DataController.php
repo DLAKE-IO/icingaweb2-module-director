@@ -6,7 +6,7 @@ use gipfl\Web\Widget\Hint;
 use Icinga\Exception\NotFoundError;
 use Icinga\Module\Director\Forms\DirectorDatalistEntryForm;
 use Icinga\Module\Director\Forms\DirectorDatalistForm;
-use Icinga\Module\Director\Forms\IcingaServiceDictionaryMemberForm;
+use Icinga\Module\Director\Forms\IcingaDictionaryMemberForm;
 use Icinga\Module\Director\Objects\DirectorDatalist;
 use Icinga\Module\Director\Objects\IcingaHost;
 use Icinga\Module\Director\Objects\IcingaObject;
@@ -193,7 +193,8 @@ class DataController extends ActionController
             'object_name' => $field->getSetting('template_name')
         ], $connection);
 
-        $form = new IcingaServiceDictionaryMemberForm();
+        $form = new IcingaDictionaryMemberForm();
+        $form->setType(get_class($object));
         $form->setDb($connection);
         if ($instance) {
             $instanceObject = $object::create([

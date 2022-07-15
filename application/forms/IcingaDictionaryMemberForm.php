@@ -4,13 +4,16 @@ namespace Icinga\Module\Director\Forms;
 
 use Icinga\Module\Director\Web\Form\DirectorObjectForm;
 use Icinga\Module\Director\Objects\IcingaService;
+use Icinga\Module\Director\Objects\IcingaHost;
 
 class IcingaServiceDictionaryMemberForm extends DirectorObjectForm
 {
-    /** @var IcingaService */
+    /** @var IcingaObject */
     protected $object;
 
     private $succeeded;
+
+    protected $object_class;
 
     /**
      * @throws \Zend_Form_Exception
@@ -28,6 +31,10 @@ class IcingaServiceDictionaryMemberForm extends DirectorObjectForm
         $this->groupMainProperties()->setButtons();
     }
 
+    public function setType($object_class) {
+        $this->object_class = $object_class;
+    }
+
     protected function isNew()
     {
         return $this->object === null;
@@ -39,7 +46,7 @@ class IcingaServiceDictionaryMemberForm extends DirectorObjectForm
 
     protected function getObjectClassname()
     {
-        return IcingaService::class;
+        return $this->object_class;
     }
 
     public function succeeded()
